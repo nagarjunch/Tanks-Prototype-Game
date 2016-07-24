@@ -6,7 +6,7 @@ public class MyCameraControl : MonoBehaviour {
     public float m_DampTime = 0.2f;
     public float m_MinZoomSize = 5f;
     public float m_ScreenEdgeBuffer = 4f;
-    public Transform[] m_Targets;
+    public ArrayList m_Targets = new ArrayList();
 
     private Camera m_Camera;
     private Vector3 m_AverageTargetPosition;
@@ -27,7 +27,10 @@ public class MyCameraControl : MonoBehaviour {
     {
         m_AverageTargetPosition = FindAverageTargetPosition();
 
-        transform.position = Vector3.SmoothDamp(transform.position, m_AverageTargetPosition, ref m_MoveVelocity, m_DampTime);
+        if (!float.IsNaN(m_AverageTargetPosition.x) && !float.IsNaN(m_AverageTargetPosition.y) && !float.IsNaN(m_AverageTargetPosition.z))
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, m_AverageTargetPosition, ref m_MoveVelocity, m_DampTime);
+        }
     }
 
     Vector3 FindAverageTargetPosition()
@@ -41,7 +44,7 @@ public class MyCameraControl : MonoBehaviour {
             averagePostion += target.position;
         }
 
-        averagePostion = averagePostion / m_Targets.Length;
+        averagePostion = averagePostion / m_Targets.Count;
         return averagePostion;
     }
 

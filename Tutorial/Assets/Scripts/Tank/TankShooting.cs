@@ -23,7 +23,10 @@ public class TankShooting : MonoBehaviour
     private void OnEnable()
     {
         m_CurrentLaunchForce = m_MinLaunchForce;
-        m_AimSlider.value = m_MinLaunchForce;
+        if (m_AimSlider != null)
+        {
+            m_AimSlider.value = m_MinLaunchForce;
+        }
     }
 
 
@@ -37,7 +40,10 @@ public class TankShooting : MonoBehaviour
     private void Update()
     {
         // Track the current state of the fire button and make decisions based on the current launch force.
-        m_AimSlider.value = m_MinLaunchForce;
+        if (m_AimSlider != null)
+        {
+            m_AimSlider.value = m_MinLaunchForce;
+        }
 
         if(m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)
         {

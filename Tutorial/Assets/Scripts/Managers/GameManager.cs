@@ -47,14 +47,16 @@ public class GameManager : MonoBehaviour
 
     private void SetCameraTargets()
     {
-        Transform[] targets = new Transform[m_Tanks.Length];
-
-        for (int i = 0; i < targets.Length; i++)
+        if(m_CameraControl.m_Targets == null)
         {
-            targets[i] = m_Tanks[i].m_Instance.transform;
+            m_CameraControl.m_Targets = new ArrayList();
         }
+        m_CameraControl.m_Targets.Clear();
 
-        m_CameraControl.m_Targets = targets;
+        for (int i = 0; i < m_Tanks.Length; i++)
+        {
+            m_CameraControl.m_Targets.Add(m_Tanks[i].m_Instance.transform);
+        }
     }
 
 
